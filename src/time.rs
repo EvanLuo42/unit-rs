@@ -27,19 +27,19 @@ impl<T: Float + From<f32>> From<Measure<T, Minute>> for Measure<T, Second> {
 
 #[cfg(test)]
 mod time_test {
-    use crate::Measure;
+    use crate::{Measure, measure};
     use crate::time::{Minute, Second};
 
     #[test]
     fn seconds_to_minutes() {
-        let second = Measure::<_, Second>::new(60.);
+        let second = measure!(Second of 60.);
         let minute: Measure<_, Minute> = second.into();
         assert_eq!(*minute, 1.)
     }
 
     #[test]
     fn minutes_to_seconds() {
-        let minute = Measure::<_, Minute>::new(1.);
+        let minute = measure!(Minute of 1.);
         let second: Measure<_, Second> = minute.into();
         assert_eq!(*second, 60.)
     }

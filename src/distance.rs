@@ -29,18 +29,18 @@ impl<T: Float + From<f32>> From<Measure<T, Meter>> for Measure<T, Kilometer> {
 #[cfg(test)]
 mod distance_test {
     use crate::distance::{Kilometer, Meter};
-    use crate::Measure;
+    use crate::{Measure, measure};
 
     #[test]
     fn meters_to_kilometers() {
-        let meters = Measure::<_, Meter>::new(1000.);
+        let meters = measure!(Meter of 1000.);
         let kilometers: Measure<_, Kilometer> = meters.into();
         assert_eq!(*kilometers, 1.);
     }
 
     #[test]
     fn kilometers_to_meters() {
-        let kilometers = Measure::<_, Kilometer>::new(1.);
+        let kilometers = measure!(Kilometer of 1.);
         let meters: Measure<_, Meter> = kilometers.into();
         assert_eq!(*meters, 1000.);
     }
