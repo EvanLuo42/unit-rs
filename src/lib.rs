@@ -11,8 +11,8 @@ use num_traits::Float;
 /// This struct is basically for storing unit value. The unit type is stored
 /// in generic and wrapped by a [PhantomData].
 ///
-/// The [T] type refers to the value type. It has to be a Float, and can be
-/// converted from [f64] (in order to be divided by a constant).
+/// The generic T refers to the value type. It has to be a Float, and can be
+/// converted from f64 (in order to be divided by a constant).
 ///
 /// Examples:
 /// ```rust
@@ -33,8 +33,8 @@ use num_traits::Float;
 /// ```
 #[derive(Copy, Clone)]
 pub struct Measure<T: Float + From<f32>, U: Unit> {
-    value: T,
-    unit: PhantomData<U>
+    pub value: T,
+    pub unit: PhantomData<U>
 }
 
 impl<T: Float + From<f32>, U: Unit> Measure<T, U> {
