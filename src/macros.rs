@@ -1,3 +1,12 @@
+/// Generate a measure
+///
+/// Examples:
+/// ```rust
+/// use unit_rs::{measure, Measure};
+/// use unit_rs::distance::Meter;
+///
+/// let meters = measure!(Meter of 3.);
+/// ```
 #[macro_export]
 macro_rules! measure {
     ($unit:tt of $value:expr) => {
@@ -5,6 +14,16 @@ macro_rules! measure {
     };
 }
 
+/// Convert a [crate::Measure] into a desired unit
+///
+/// Examples:
+/// ```rust
+/// use unit_rs::{convert, measure, Measure};
+/// use unit_rs::distance::{Meter, Kilometer};
+///
+/// let meters = measure!(Meter of 3.);
+/// let kilometers = convert!(Kilometer from meters);
+/// ```
 #[macro_export]
 macro_rules! convert {
     ($left:tt from $right:expr) => {

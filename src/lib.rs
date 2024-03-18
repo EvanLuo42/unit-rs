@@ -1,5 +1,15 @@
+//! This crate provide a [Measure] struct to wrap unit and unit value together.
+//! Using [Measure], you can safely convert value from units to units. Also, the
+//! units are shown in types. e.g. `let meters: Measure<f64, Meter>;`. This can ensure
+//! that users don't give a value in wrong unit.
+
+/// Time units implementations
 pub mod time;
+
+/// Distance units implementations
 pub mod distance;
+
+/// Measure macros implementations
 pub mod macros;
 
 use std::marker::PhantomData;
@@ -33,11 +43,15 @@ use num_traits::Float;
 /// ```
 #[derive(Copy, Clone)]
 pub struct Measure<T: Float + From<f32>, U: Unit> {
+    /// Value of a measure
     pub value: T,
+
+    /// Unit of a measure
     pub unit: PhantomData<U>
 }
 
 impl<T: Float + From<f32>, U: Unit> Measure<T, U> {
+    /// * `value` Value of the new measure
     pub fn new(value: T) -> Measure<T, U> {
         Measure {
             value,
@@ -54,10 +68,26 @@ impl<T: Float + From<f32>, U: Unit> Deref for Measure<T, U> {
     }
 }
 
+/// Pre-defined unit types
 pub enum UnitType {
-    Time, Distance
+    Time, Distance, Custom
 }
 
+/// Trait mark a unit
+///
+/// Every unit should implement this trait and specify [Unit::TYPE].
+///
+/// Examples:
+/// ```rust
+/// use unit_rs::{Unit, UnitType};
+///
+/// struct CustomUnit;
+///
+/// impl Unit for CustomUnit {
+///     const TYPE: UnitType = UnitType::Custom;
+/// }
+/// ```
 pub trait Unit {
+    /// Type of the unit
     const TYPE: UnitType;
 }
