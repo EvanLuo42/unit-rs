@@ -5,13 +5,6 @@ macro_rules! measure {
     };
 }
 
-#[macro_export]
-macro_rules! james {
-    (James Wang is a $value:expr) => {
-        println!("James Wang is a {}", $value)
-    };
-}
-
 #[cfg(test)]
 mod macros_test {
     use std::any::{type_name, type_name_of_val};
