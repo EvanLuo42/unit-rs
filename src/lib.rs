@@ -12,7 +12,7 @@ use num_traits::Float;
 /// in generic and wrapped by a [PhantomData].
 ///
 /// The generic T refers to the value type. It has to be a Float, and can be
-/// converted from f64 (in order to be divided by a constant).
+/// converted from [f32] (in order to be divided by a constant).
 ///
 /// Examples:
 /// ```rust
