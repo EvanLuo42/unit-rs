@@ -5,6 +5,14 @@ macro_rules! measure {
     };
 }
 
+#[macro_export]
+macro_rules! convert {
+    ($left:tt from $right:expr) => {
+        Measure::<_, $left>::from($right)
+    };
+}
+
+
 #[cfg(test)]
 mod macros_test {
     use std::any::{type_name, type_name_of_val};
