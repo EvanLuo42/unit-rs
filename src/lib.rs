@@ -6,6 +6,31 @@ use std::marker::PhantomData;
 use std::ops::Deref;
 use num_traits::Float;
 
+/// Measure base struct.
+///
+/// This struct is basically for storing unit value. The unit type is stored
+/// in generic and wrapped by a [PhantomData].
+///
+/// The [T] type refers to the value type. It has to be a Float, and can be
+/// converted from [f64] (in order to be divided by a constant).
+///
+/// Examples:
+/// ```rust
+/// use unit_rs::{Measure, measure};
+/// use unit_rs::time::{Minute, Second};
+///
+/// let minute = Measure::<_, Minute>::new(1.);
+/// let second: Measure<_, Second> = minute.into();
+/// // Note: Deref has been implemented for Measure, so you can use
+/// // *second to get unit value.
+/// assert_eq!(*second, 60.);
+///
+/// // or use the macro...
+///
+/// let minute = measure!(Minute of 1.);
+/// let second: Measure<_, Second> = minute.into();
+/// assert_eq!(*second, 60.);
+/// ```
 #[derive(Copy, Clone)]
 pub struct Measure<T: Float + From<f32>, U: Unit> {
     value: T,
