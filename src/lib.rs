@@ -1,5 +1,6 @@
 pub mod time;
-mod distance;
+pub mod distance;
+pub mod macros;
 
 use std::marker::PhantomData;
 use std::ops::Deref;

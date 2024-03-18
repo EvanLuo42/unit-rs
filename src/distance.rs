@@ -1,6 +1,7 @@
 use num_traits::Float;
 use crate::{Measure, Unit, UnitType};
 
+#[derive(Eq, PartialEq, Debug)]
 pub struct Meter;
 
 impl Unit for Meter {
