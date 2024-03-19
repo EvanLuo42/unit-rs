@@ -1,5 +1,5 @@
 use num_traits::Float;
-use crate::{Measure, Unit, UnitType};
+use crate::{define_convert, Measure, Unit, UnitType};
 
 #[derive(Eq, PartialEq, Debug)]
 pub struct Meter;
@@ -14,17 +14,8 @@ impl Unit for Kilometer {
     const TYPE: UnitType = UnitType::Distance;
 }
 
-impl<T: Float + From<f32>> From<Measure<T, Kilometer>> for Measure<T, Meter> {
-    fn from(value: Measure<T, Kilometer>) -> Self {
-        Measure::<T, Meter>::new(*value * 1000.0.into())
-    }
-}
-
-impl<T: Float + From<f32>> From<Measure<T, Meter>> for Measure<T, Kilometer> {
-    fn from(value: Measure<T, Meter>) -> Self {
-        Measure::<T, Kilometer>::new(*value / 1000.0.into())
-    }
-}
+define_convert!(Meter to Kilometer, |origin| origin / 1000.0.into());
+define_convert!(Kilometer to Meter, |origin| origin * 1000.0.into());
 
 #[cfg(test)]
 mod distance_test {

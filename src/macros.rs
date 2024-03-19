@@ -31,6 +31,19 @@ macro_rules! convert {
     };
 }
 
+#[macro_export]
+macro_rules! define_convert {
+    ($origin:tt to $after:tt, |$x:ident| $calc:expr) => {
+        impl<T: Float + From<f32>> From<Measure<T, $origin>> for Measure<T, $after> {
+            fn from(value: Measure<T, $origin>) -> Self {
+                let mut $x = *value;
+                $x = $calc;
+                Measure::<T, $after>::new($x)
+            }
+        }
+    }
+}
+
 
 #[cfg(test)]
 mod macros_test {
