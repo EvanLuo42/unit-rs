@@ -42,7 +42,11 @@ use num_traits::Float;
 /// assert_eq!(*second, 60.);
 /// ```
 #[derive(Copy, Clone)]
-pub struct Measure<T: Float + From<f32>, U: Unit> {
+pub struct Measure<T, U>
+where
+    T: Float + From<f32>,
+    U: Unit
+{
     /// Value of a measure
     pub value: T,
 
@@ -50,7 +54,11 @@ pub struct Measure<T: Float + From<f32>, U: Unit> {
     pub unit: PhantomData<U>
 }
 
-impl<T: Float + From<f32>, U: Unit> Measure<T, U> {
+impl<T, U> Measure<T, U> 
+where
+    T: Float + From<f32>,
+    U: Unit
+{
     /// * `value` Value of the new measure
     pub fn new(value: T) -> Measure<T, U> {
         Measure {
@@ -60,7 +68,11 @@ impl<T: Float + From<f32>, U: Unit> Measure<T, U> {
     }
 }
 
-impl<T: Float + From<f32>, U: Unit> Deref for Measure<T, U> {
+impl<T, U> Deref for Measure<T, U>
+where
+    T: Float + From<f32>,
+    U: Unit
+{
     type Target = T;
 
     fn deref(&self) -> &Self::Target {
